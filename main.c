@@ -73,7 +73,7 @@ int main()
     int tab[4];
     for(int i = 0; i<=4; i++)
     {
-        tab[i] = i;
+        tab[i] = i+1;
     }
     zeruj(4, tab);
     wypisz(4, tab);
