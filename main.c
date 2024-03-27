@@ -67,8 +67,69 @@ void zeruj(unsigned int n, int* tab)
     }
 }
 
+int pierwsza(unsigned int n)
+{
+    int pom,i,j;
+    bool sito[n];
+    for(i=0;i<n;i++)
+    {
+        sito[i] = true;
+    }
+    for(i=2;i<n;i++)
+    {
+        if(sito[i])
+        {
+            pom =i;
+            for(j=2*i;j<n;j=j+i)
+            {
+                sito[j]=false;
+            }
+        }
+    }
+    return pom;
+}
+
+int * wskaznik_listy(unsigned int n)
+{
+    int* lista = malloc(n* sizeof(int));
+    for(int i=0;i<n;i++)
+    {
+        lista[i] = i;
+    }
+    return &lista[1];
+}
+
+void odwrocenie_tablicy(unsigned int n, int* tab)
+{
+    int zamiany = n;
+    if(n%2!=0)
+    {
+        zamiany = (n-1)/2;
+    }
+    for(int i = 0; i<=zamiany-1; i++)
+    {
+        int pomocnicza = tab[i];
+        tab[i] = tab[n-1-i];
+        tab[n-1-i] = pomocnicza;
+    }
+    for(int i = 0; i<n; i++)
+    {
+        printf("%d", tab[i]);
+    }
+}
+
 int main()
 {
+    int tablica[3];
+    tablica[0] = 1;
+    tablica[1] = 2;
+    tablica[2] = 3;
+    odwrocenie_tablicy(3, tablica);
+    /*
+    int *p = wskaznik_listy(4);
+    printf("%d\n", *p);
+    *p = 5;
+    printf("%d", *p);
     printf("Hello world!\n");
     int tab[4];
     for(int i = 0; i<=4; i++)
@@ -77,7 +138,8 @@ int main()
     }
     zeruj(4, tab);
     wypisz(4, tab);
-    /*
+    printf("%d", pierwsza(29));
+
     doskonala_lista();
     int licz = 43;
     int* ptr = &licz;
