@@ -118,13 +118,154 @@ void odwrocenie_tablicy(unsigned int n, int* tab)
     }
 }
 
+char * wytnij(char *napis, int n, int m)
+{
+    int dlugosc = 0;
+    for(int i = 0; napis[i] != 0; i++)
+    {
+        dlugosc++;
+    }
+
+    char *wyciety = malloc(sizeof(char) * dlugosc);
+    int indexDlaWyciety = 0;
+    for(int j = 0; j<dlugosc; j++)
+    {
+        if(j >= n && j <= m)
+        {
+            continue;
+        }
+        wyciety[indexDlaWyciety] = napis[j];
+        indexDlaWyciety++;
+    }
+    return wyciety;
+}
+
+char * wytnijNapis2(char *napis, char *napis2)
+{
+    int dlugosc = 0;
+    for(int i = 0; napis[i] != 0; i++)
+    {
+        dlugosc++;
+    }
+
+    char *wyciety = malloc(sizeof(char) * dlugosc);
+    int indexDlaWyciety = 0;
+    int pomin;
+    int powtorzenia = 0;
+    for(int i = 0; napis[i] != 0; i++)
+    {
+        pomin = 0;
+        for(int j = 0; napis2[j] != 0; j++)
+        {
+            if(napis[i] == napis2[j])
+            {
+                pomin = 1;
+            }
+        }
+        if(pomin == 1)
+        {
+            powtorzenia++;
+            continue;
+        }
+        wyciety[indexDlaWyciety] = napis[i];
+        indexDlaWyciety++;
+    }
+    wyciety[dlugosc-powtorzenia]=0;
+    return wyciety;
+}
+
+void szyfr(char *napis)
+{
+    for(int i = 0; napis[i] != 0; i++)
+    {
+        napis[i] = napis[i]+3;
+    }
+}
+
+int** macierzAlokuj(unsigned int n, unsigned int m)
+{
+    int **t=malloc(n*sizeof(int*));
+    int i;
+    for(i=0;i<n;i++)
+    {
+        t[i] = malloc(m*sizeof(int));
+    }
+    return t;
+}
+
+struct element
+{
+    int i;
+    struct element *next;
+};
+
+struct element *utworz()
+{
+    return NULL;
+};
+
+void wyczysc(struct element *Lista)
+{
+    struct element *wsk = Lista;
+    while(Lista!= NULL)
+    {
+        Lista = Lista->next;
+        free(wsk);
+        wsk=Lista;
+    }
+}
+
+struct element * dodajnapoczatek(struct element* Lista, int a)
+{
+    struct element *wsk = malloc(sizeof(struct element));
+    wsk->i=a;
+    wsk->next=Lista;
+    return wsk;
+};
+
+unsigned int ile(struct element* Lista)
+{
+    unsigned int suma = 0;
+    while(Lista!=NULL)
+    {
+        suma++;
+        Lista = Lista->next;
+    }
+
+    return suma;
+}
+
 int main()
 {
-    int tablica[3];
-    tablica[0] = 1;
-    tablica[1] = 2;
-    tablica[2] = 3;
-    odwrocenie_tablicy(3, tablica);
+    struct element *Lista = malloc(sizeof(struct element));
+    Lista->i = 1;
+    Lista->next = malloc(sizeof(struct element));
+    Lista->next->i = 2;
+    Lista->next->next = malloc(sizeof(struct element));
+    Lista->next->next->i = 5;
+    Lista->next->next->next = malloc(sizeof(struct element));
+    Lista->next->next->next->i = 7;
+    Lista->next->next->next->next = malloc(sizeof(struct element));
+    Lista->next->next->next->next->i = 10;
+    Lista->next->next->next->next->next = malloc(sizeof(struct element));
+    Lista->next->next->next->next->next->i = 11;
+    Lista->next->next->next->next->next->next = NULL;
+    printf("%d", ile(Lista));
+    //printf("%d", Lista->next->i);
+
+    /*
+    int liczby[12] = {1, 2 , 3};
+    printf("%d", 0[liczby]);
+    //odwrocenie_tablicy(3, tablica);
+    char napis[] = "matma";
+    char matma[] = "matma";
+    szyfr(matma);
+    printf(matma);
+    */
+    //char napis2[] = "io";
+    //printf(wytnijNapis2(napis, napis2));
+    //printf(wytnij(napis, 5, 8));
+
     /*
     int *p = wskaznik_listy(4);
     printf("%d\n", *p);
